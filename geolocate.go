@@ -36,7 +36,12 @@ func ListNetworksWin() []MacAddr {
 }
 
 // Locate requests current device location based on nearby wifi BSSID's
-func Locate() (string, error) {
+func Locate(apikey string) (string, error) {
+
+	// check for api key
+	if len(apikey) == 0 {
+		return "", errors.New("Api key required")
+	}
 
 	// Get list of wifi bssid's
 	wlanlist := ListNetworksWin()
@@ -60,7 +65,7 @@ func Locate() (string, error) {
 	}
 
 	// submit post request
-	resp, err := http.Post("https://pos.ls.hereapi.com/positioning/v1/locate?apiKey=***REMOVED***"+fallbackStr, "application/json", bytes.NewBuffer(reqjson))
+	resp, err := http.Post("https://pos.ls.hereapi.com/positioning/v1/locate?apiKey="+apikey+fallbackStr, "application/json", bytes.NewBuffer(reqjson))
 	if err != nil {
 		return "", err
 	}

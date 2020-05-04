@@ -4,7 +4,6 @@ import (
 	"flag"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"micaiahwallace/geolocate"
 	"os"
 )
@@ -18,18 +17,19 @@ func usage() {
 func main() {
 
 	// get cli args
-	var outfile string
+	var outfile, apiKey string
 
 	// parse cli args
 	flag.StringVar(&outfile, "out", "", "Output file to write json location")
+	flag.StringVar(&apiKey, "apikey", "", "Here location service api key")
 	flag.CommandLine.Usage = usage
 	flag.CommandLine.SetOutput(os.Stdout)
 	flag.Parse()
 
 	// Fetch the location
-	location, err := geolocate.Locate()
+	location, err := geolocate.Locate(apiKey)
 	if err != nil {
-		log.Println("Failed to locate", err.Error())
+		fmt.Println("Geo Locating Failed:", err.Error())
 	}
 
 	// If file specified, write to file instead of stdout
