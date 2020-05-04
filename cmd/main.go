@@ -29,7 +29,8 @@ func main() {
 	// Fetch the location
 	location, err := geolocate.Locate(apiKey)
 	if err != nil {
-		fmt.Println("Geo Locating Failed:", err.Error())
+		fmt.Println(err.Error())
+		return
 	}
 
 	// If file specified, write to file instead of stdout
