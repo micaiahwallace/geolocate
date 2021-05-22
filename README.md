@@ -9,7 +9,7 @@ This utility is only for Windows at the moment and does not have any external go
 
 Get running quick by installing with go get to have access to the geolocate command
 ```
-C:\> go get github.com/micaiahwallace/geolocate
+C:\> go get github.com/micaiahwallace/geolocate/cmd/geolocate
 C:\> geolocate.exe --help
 ```
 
