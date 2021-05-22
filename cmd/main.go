@@ -21,16 +21,22 @@ func main() {
 
 	// parse cli args
 	flag.StringVar(&outfile, "out", "", "Output file to write json location")
-	flag.StringVar(&apiKey, "apikey", "", "Here location service api key")
+	flag.StringVar(&apiKey, "apikey", "", "Here location service api key (required)")
 	flag.CommandLine.Usage = usage
 	flag.CommandLine.SetOutput(os.Stdout)
 	flag.Parse()
+
+	// Validate params first
+	if apiKey == "" {
+		usage()
+		os.Exit(1)
+	}
 
 	// Fetch the location
 	location, err := geolocate.Locate(apiKey)
 	if err != nil {
 		fmt.Println(err.Error())
-		return
+		os.Exit(1)
 	}
 
 	// If file specified, write to file instead of stdout
@@ -41,6 +47,7 @@ func main() {
 	}
 }
 
+// Write text to a specified file
 func writeFile(txt, file string) error {
 	return ioutil.WriteFile(file, []byte(txt), 0755)
 }
