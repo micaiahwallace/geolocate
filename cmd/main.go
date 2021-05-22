@@ -4,8 +4,9 @@ import (
 	"flag"
 	"fmt"
 	"io/ioutil"
-	"micaiahwallace/geolocate"
 	"os"
+
+	"github.com/micaiahwallace/geolocate"
 )
 
 // Usage prints cli usage
