@@ -81,7 +81,7 @@ func Locate(apikey string) (string, error) {
 	locateres := LocateResp{}
 	err = json.Unmarshal(body, &locateres)
 	if err != nil {
-		return "", err
+		return "", errors.New(string(body))
 	}
 
 	// check for api errors
